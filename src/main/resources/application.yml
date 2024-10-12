@@ -13,3 +13,11 @@ spring:
       initialize-schema: never
     job:
       names: ${job.name:NONE}
+      enabled: false
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true

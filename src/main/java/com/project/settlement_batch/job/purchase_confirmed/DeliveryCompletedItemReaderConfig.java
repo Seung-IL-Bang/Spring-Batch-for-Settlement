@@ -2,14 +2,13 @@ package com.project.settlement_batch.job.purchase_confirmed;
 
 import com.project.settlement_batch.domain.entity.order.OrderItem;
 import com.project.settlement_batch.infrastructure.database.repository.OrderItemRepository;
-import org.springframework.batch.item.data.RepositoryItemReader;
-import org.springframework.batch.item.data.builder.RepositoryItemReaderBuilder;
+import jakarta.persistence.EntityManagerFactory;
+import org.springframework.batch.item.database.JpaPagingItemReader;
+import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @Configuration
 public class DeliveryCompletedItemReaderConfig {
@@ -20,14 +19,15 @@ public class DeliveryCompletedItemReaderConfig {
 
 
     @Bean
-    public RepositoryItemReader<OrderItem> deliveryCompletedJpaItemReader(OrderItemRepository orderItemRepository) {
-        return new RepositoryItemReaderBuilder<OrderItem>()
+    public JpaPagingItemReader<OrderItem> deliveryCompletedJpaItemReader(EntityManagerFactory entityManagerFactory) {
+
+        DeliveryCompletedJpaQueryProvider queryProvider = new DeliveryCompletedJpaQueryProvider(startDateTime, endDateTime);
+
+        return new JpaPagingItemReaderBuilder<OrderItem>()
                 .name("deliveryCompletedJpaItemReader")
-                .repository(orderItemRepository)
-                .methodName("findByShippedCompletedAtBetween")
-                .arguments(startDateTime, endDateTime)
                 .pageSize(CHUNK_SIZE) // TODO 주입 받는 parameter로 분리
-                .sorts(Map.of("shippedCompletedAt", Sort.Direction.ASC))
+                .queryProvider(queryProvider)
+                .entityManagerFactory(entityManagerFactory)
                 .build();
     }
 

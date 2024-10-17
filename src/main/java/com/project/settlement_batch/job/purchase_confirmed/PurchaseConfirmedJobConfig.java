@@ -10,7 +10,7 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.data.RepositoryItemReader;
+import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -22,7 +22,7 @@ public class PurchaseConfirmedJobConfig {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
 
-    private final RepositoryItemReader deliveryCompletedJpaItemReader;
+    private final JpaPagingItemReader deliveryCompletedJpaItemReader;
     private final ItemProcessor purchaseConfirmedProcessor;
     private final ItemWriter purchaseConfirmedWriter;
 

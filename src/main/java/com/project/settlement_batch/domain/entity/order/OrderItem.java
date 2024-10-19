@@ -3,6 +3,8 @@ package com.project.settlement_batch.domain.entity.order;
 import com.project.settlement_batch.domain.constant.DeliveryStatus;
 import com.project.settlement_batch.domain.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
@@ -30,5 +32,10 @@ public class OrderItem extends BaseEntity {
     private LocalDateTime purchaseConfirmedAt;
 
     private LocalDateTime shippedCompletedAt;
+
+    public OrderItem purchaseConfirm() {
+        this.purchaseConfirmedAt = LocalDateTime.now();
+        return this;
+    }
 
 }

@@ -8,6 +8,8 @@ import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +23,8 @@ public class PurchaseConfirmedJobConfig {
     private final PlatformTransactionManager transactionManager;
 
     private final RepositoryItemReader deliveryCompletedJpaItemReader;
+    private final ItemProcessor purchaseConfirmedProcessor;
+    private final ItemWriter purchaseConfirmedWriter;
 
     private static final String JOB_NAME = "purchaseConfirmedJob";
     private static final int CHUNK_SIZE = 500;
@@ -38,8 +42,9 @@ public class PurchaseConfirmedJobConfig {
         return new StepBuilder(JOB_NAME + "_step", jobRepository)
                 .<OrderItem, OrderItem>chunk(CHUNK_SIZE, transactionManager)
                 .reader(deliveryCompletedJpaItemReader)
-//                .processor()
-//                .writer()
+                .processor(purchaseConfirmedProcessor)
+                .writer(purchaseConfirmedWriter)
                 .build();
     }
+
 }

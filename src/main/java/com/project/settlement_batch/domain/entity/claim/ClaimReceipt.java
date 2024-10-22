@@ -3,6 +3,7 @@ package com.project.settlement_batch.domain.entity.claim;
 import com.project.settlement_batch.domain.constant.ClaimRequestType;
 import com.project.settlement_batch.domain.constant.ClaimStatus;
 import com.project.settlement_batch.domain.constant.ExtraFeePayer;
+import com.project.settlement_batch.domain.converter.ClaimStatusConverter;
 import com.project.settlement_batch.domain.entity.BaseEntity;
 import jakarta.persistence.*;
 
@@ -21,7 +22,7 @@ public class ClaimReceipt extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ClaimRequestType claimRequestType;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ClaimStatusConverter.class)
     private ClaimStatus claimStatus;
 
     @Enumerated(EnumType.STRING)

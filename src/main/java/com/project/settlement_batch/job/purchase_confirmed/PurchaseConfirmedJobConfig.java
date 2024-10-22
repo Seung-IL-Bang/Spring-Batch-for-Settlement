@@ -1,6 +1,7 @@
 package com.project.settlement_batch.job.purchase_confirmed;
 
 import com.project.settlement_batch.domain.entity.order.OrderItem;
+import com.project.settlement_batch.domain.entity.settlement.SettlementDaily;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -26,6 +27,8 @@ public class PurchaseConfirmedJobConfig {
     private final ItemProcessor purchaseConfirmedProcessor;
     private final ItemWriter purchaseConfirmedWriter;
 
+    private final JpaPagingItemReader dailySettlementJpaItemReader;
+
     private static final String JOB_NAME = "purchaseConfirmedJob";
     private static final int CHUNK_SIZE = 500;
 
@@ -38,12 +41,23 @@ public class PurchaseConfirmedJobConfig {
 
     @Bean
     @JobScope
-    public Step purchaseConfirmedJobStep() {
+    public Step purchaseConfirmedJobStep() { // 미클레임건이면서 일정 시간지난 배송 완료건 -> 구매 확정
         return new StepBuilder(JOB_NAME + "_step", jobRepository)
                 .<OrderItem, OrderItem>chunk(CHUNK_SIZE, transactionManager)
                 .reader(deliveryCompletedJpaItemReader)
                 .processor(purchaseConfirmedProcessor)
                 .writer(purchaseConfirmedWriter)
+                .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step dailySettlementJobStep() { // 구매 확정건 조회 ->
+        return new StepBuilder(JOB_NAME + "_dailySettlement_step", jobRepository)
+                .<OrderItem, SettlementDaily>chunk(CHUNK_SIZE, transactionManager)
+                .reader(dailySettlementJpaItemReader)
+//                .processor()
+//                .writer()
                 .build();
     }
 

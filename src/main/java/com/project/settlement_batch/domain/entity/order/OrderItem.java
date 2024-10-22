@@ -33,6 +33,7 @@ public class OrderItem extends BaseEntity {
 
     public OrderItem purchaseConfirm() {
         this.purchaseConfirmedAt = LocalDateTime.now();
+        this.deliveryStatus = DeliveryStatus.DELIVERED;
         return this;
     }
 }

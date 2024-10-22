@@ -32,4 +32,9 @@ public class ClaimReceipt extends BaseEntity {
 
     private LocalDateTime completedAt;
 
+    public void completedAtNow() {
+        completedAt = LocalDateTime.now();
+        claimStatus = ClaimStatus.COMPLETED;
+    }
+
 }

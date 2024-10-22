@@ -20,8 +20,12 @@ public class DeliveryCompletedJpaQueryProvider extends AbstractJpaQueryProvider 
     @Override
     public Query createQuery() {
         TypedQuery<OrderItem> query = this.getEntityManager()
-                .createQuery("SELECT oi FROM OrderItem oi " +
-                        "WHERE shippedCompletedAt BETWEEN :startDateTime AND :endDateTime", OrderItem.class)
+                .createQuery("SELECT oi " +
+                        "FROM OrderItem oi " +
+                        "LEFT OUTER JOIN ClaimReceipt cr ON oi.id = cr.id " +
+                        "WHERE shippedCompletedAt BETWEEN :startDateTime AND :endDateTime " +
+                        "AND oi.purchaseConfirmedAt IS NULL " +
+                        "AND (cr.id IS NULL OR cr.completedAt IS NOT NULL)", OrderItem.class)
                 .setParameter("startDateTime", startDateTime)
                 .setParameter("endDateTime", endDateTime);
         return query;

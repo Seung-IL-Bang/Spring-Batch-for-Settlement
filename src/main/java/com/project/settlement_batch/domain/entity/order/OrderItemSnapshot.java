@@ -6,12 +6,14 @@ import com.project.settlement_batch.domain.entity.BaseEntity;
 import com.project.settlement_batch.domain.entity.Product;
 import com.project.settlement_batch.domain.entity.Seller;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
 import static jakarta.persistence.FetchType.*;
 
 @Entity
+@Getter
 public class OrderItemSnapshot extends BaseEntity {
 
     @Id

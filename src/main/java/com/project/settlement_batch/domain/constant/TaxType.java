@@ -1,8 +1,8 @@
 package com.project.settlement_batch.domain.constant;
 
 public enum TaxType {
-    EXEMPT("영세"),
-    ZERO_RATE("면세"),
+    FREE("면세"),
+    ZERO("영세"),
     TAXABLE("과세")
     ;
 

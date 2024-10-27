@@ -4,11 +4,13 @@ import com.project.settlement_batch.domain.constant.SellType;
 import com.project.settlement_batch.domain.constant.TaxType;
 import com.project.settlement_batch.domain.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Builder
 public class SettlementDaily extends BaseEntity {
 
     @Id

@@ -2,8 +2,10 @@ package com.project.settlement_batch.domain.entity;
 
 import com.project.settlement_batch.domain.constant.SellType;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Seller extends BaseEntity {
 
     @Id

@@ -1,7 +1,6 @@
-package com.project.settlement_batch.job.purchase_confirmed;
+package com.project.settlement_batch.job.purchaseconfirmed;
 
 import com.project.settlement_batch.domain.entity.order.OrderItem;
-import com.project.settlement_batch.infrastructure.database.repository.OrderItemRepository;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;

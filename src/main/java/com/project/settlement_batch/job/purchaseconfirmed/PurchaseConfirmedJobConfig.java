@@ -1,7 +1,8 @@
-package com.project.settlement_batch.job.purchase_confirmed;
+package com.project.settlement_batch.job.purchaseconfirmed;
 
 import com.project.settlement_batch.domain.entity.order.OrderItem;
 import com.project.settlement_batch.domain.entity.settlement.SettlementDaily;
+import com.project.settlement_batch.infrastructure.database.repository.SettlementDailyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -28,6 +29,7 @@ public class PurchaseConfirmedJobConfig {
     private final ItemWriter purchaseConfirmedWriter;
 
     private final JpaPagingItemReader dailySettlementJpaItemReader;
+    private final SettlementDailyRepository settlementDailyRepository;
 
     private static final String JOB_NAME = "purchaseConfirmedJob";
     private static final int CHUNK_SIZE = 500;
@@ -36,6 +38,7 @@ public class PurchaseConfirmedJobConfig {
     public Job purchaseConfirmedJob() {
         return new JobBuilder(JOB_NAME, jobRepository)
                 .start(purchaseConfirmedJobStep())
+                .next(dailySettlementJobStep())
                 .build();
     }
 
@@ -57,7 +60,7 @@ public class PurchaseConfirmedJobConfig {
                 .<OrderItem, SettlementDaily>chunk(CHUNK_SIZE, transactionManager)
                 .reader(dailySettlementJpaItemReader)
                 .processor(dailySettlementItemProcessor())
-//                .writer()
+                .writer(dailySettlementItemWriter())
                 .build();
     }
 
@@ -66,4 +69,8 @@ public class PurchaseConfirmedJobConfig {
         return new DailySettlementItemProcessor();
     }
 
+    @Bean
+    public DailySettlementItemWriter dailySettlementItemWriter() {
+        return new DailySettlementItemWriter(settlementDailyRepository);
+    }
 }

@@ -1,6 +1,7 @@
-package com.project.settlement_batch.job.purchaseconfirmed;
+package com.project.settlement_batch.job.purchaseconfirmed.daily;
 
 import com.project.settlement_batch.domain.entity.order.OrderItem;
+import com.project.settlement_batch.job.purchaseconfirmed.CustomPurchaseConfirmedItemQueryProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.batch.item.database.JpaPagingItemReader;

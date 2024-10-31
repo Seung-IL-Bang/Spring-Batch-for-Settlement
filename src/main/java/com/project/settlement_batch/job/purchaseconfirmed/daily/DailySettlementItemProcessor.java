@@ -1,4 +1,4 @@
-package com.project.settlement_batch.job.purchaseconfirmed;
+package com.project.settlement_batch.job.purchaseconfirmed.daily;
 
 import com.project.settlement_batch.domain.entity.order.OrderItem;
 import com.project.settlement_batch.domain.entity.settlement.SettlementDaily;

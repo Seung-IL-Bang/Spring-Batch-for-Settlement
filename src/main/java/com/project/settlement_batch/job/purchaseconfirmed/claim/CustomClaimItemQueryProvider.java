@@ -1,4 +1,4 @@
-package com.project.settlement_batch.job.purchaseconfirmed;
+package com.project.settlement_batch.job.purchaseconfirmed.claim;
 
 import com.project.settlement_batch.domain.entity.claim.ClaimReceiptItem;
 import jakarta.persistence.Query;

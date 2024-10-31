@@ -23,7 +23,7 @@ public class DeliveryCompletedJpaQueryProvider extends AbstractJpaQueryProvider 
                 .createQuery("SELECT oi " +
                         "FROM OrderItem oi " +
                         "LEFT OUTER JOIN ClaimReceipt cr ON oi.id = cr.id " +
-                        "WHERE shippedCompletedAt BETWEEN :startDateTime AND :endDateTime " +
+                        "WHERE oi.shippedCompletedAt BETWEEN :startDateTime AND :endDateTime " +
                         "AND oi.purchaseConfirmedAt IS NULL " +
                         "AND (cr.id IS NULL OR cr.completedAt IS NOT NULL)", OrderItem.class)
                 .setParameter("startDateTime", startDateTime)

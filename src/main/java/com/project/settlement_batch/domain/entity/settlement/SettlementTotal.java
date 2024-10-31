@@ -4,11 +4,17 @@ import com.project.settlement_batch.domain.constant.SellType;
 import com.project.settlement_batch.domain.constant.TaxType;
 import com.project.settlement_batch.domain.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SettlementTotal extends BaseEntity {
 
     @Id

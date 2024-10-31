@@ -31,7 +31,8 @@ public class SummingSettlementDailyQueryProvider extends AbstractJpaQueryProvide
                         "sum(sd.mileageUsedAmount) as sumMileageUsageAmount," +
                         "sum(sd.shippingFee) as sumShippingFeeAmount," +
                         "sum(sd.claimShippingFee) as sumClaimShippingFeeAmount," +
-                        "sum(sd.commissionAmount) as sumCommissionAmount " +
+                        "sum(sd.commissionAmount) as sumCommissionAmount," +
+                        "sum(sd.taxAmount) as sumTaxAmount " +
                         "FROM SettlementDaily sd " +
                         "WHERE sd.settlementDate BETWEEN :startDate AND :endDate " +
                         "GROUP BY sellerId"

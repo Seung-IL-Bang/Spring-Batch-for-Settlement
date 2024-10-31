@@ -15,7 +15,7 @@ public class ClaimReceipt extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "claim_receipt_id")
-    private int id;
+    private int claimReceiptId;
 
     private int orderId;
 

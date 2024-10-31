@@ -1,5 +1,6 @@
 package com.project.settlement_batch.job.purchaseconfirmed;
 
+import com.project.settlement_batch.domain.entity.claim.ClaimReceiptItem;
 import com.project.settlement_batch.domain.entity.order.OrderItem;
 import com.project.settlement_batch.domain.entity.settlement.SettlementDaily;
 import com.project.settlement_batch.infrastructure.database.repository.SettlementDailyRepository;
@@ -29,6 +30,7 @@ public class PurchaseConfirmedJobConfig {
     private final ItemWriter purchaseConfirmedWriter;
 
     private final JpaPagingItemReader dailySettlementJpaItemReader;
+    private final JpaPagingItemReader claimSettlementJpaItemReader;
     private final SettlementDailyRepository settlementDailyRepository;
 
     private static final String JOB_NAME = "purchaseConfirmedJob";
@@ -39,6 +41,7 @@ public class PurchaseConfirmedJobConfig {
         return new JobBuilder(JOB_NAME, jobRepository)
                 .start(purchaseConfirmedJobStep())
                 .next(dailySettlementJobStep())
+                .next(claimSettlementJobStep())
                 .build();
     }
 
@@ -72,5 +75,14 @@ public class PurchaseConfirmedJobConfig {
     @Bean
     public DailySettlementItemWriter dailySettlementItemWriter() {
         return new DailySettlementItemWriter(settlementDailyRepository);
+    }
+
+    @Bean
+    @JobScope
+    public Step claimSettlementJobStep() {
+        return new StepBuilder(JOB_NAME + "_claimSettlement_step", jobRepository)
+                .<ClaimReceiptItem, SettlementDaily>chunk(CHUNK_SIZE, transactionManager)
+                .reader(claimSettlementJpaItemReader)
+                .build();
     }
 }

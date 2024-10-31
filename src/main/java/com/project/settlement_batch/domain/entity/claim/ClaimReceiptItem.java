@@ -12,7 +12,7 @@ public class ClaimReceiptItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "claim_receipt_item_id")
-    private int id;
+    private int claimReceiptItemId;
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "order_item_id")

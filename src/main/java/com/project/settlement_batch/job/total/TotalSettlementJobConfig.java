@@ -1,6 +1,7 @@
 package com.project.settlement_batch.job.total;
 
 import com.project.settlement_batch.domain.entity.settlement.SettlementTotal;
+import com.project.settlement_batch.infrastructure.database.repository.SettlementTotalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -22,6 +23,7 @@ public class TotalSettlementJobConfig {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final JpaPagingItemReader totalSettlementJpaItemReader;
+    private final SettlementTotalRepository settlementTotalRepository;
 
     private final String JOB_NAME = "totalSettlementJob";
     private final int CHUNK_SIZE = 500;
@@ -41,7 +43,7 @@ public class TotalSettlementJobConfig {
                 .<SummingSettlementDailyQueryProvider, SettlementTotal>chunk(CHUNK_SIZE, this.transactionManager)
                 .reader(totalSettlementJpaItemReader)
                 .processor(totalSettlementItemProcessor())
-
+                .writer(totalSettlementItemWriter())
                 .build();
     }
 
@@ -50,5 +52,9 @@ public class TotalSettlementJobConfig {
         return new TotalSettlementItemProcessor();
     }
 
+    @Bean
+    public TotalSettlementItemWriter totalSettlementItemWriter() {
+        return new TotalSettlementItemWriter(settlementTotalRepository);
+    }
 
 }

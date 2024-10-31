@@ -28,7 +28,7 @@ public class DailySettlementItemReaderConfig {
         CustomPurchaseConfirmedItemQueryProvider customQueryProvider
                 = new CustomPurchaseConfirmedItemQueryProvider(startDateTime, endDateTime);
 
-        return new JpaPagingItemReaderBuilder()
+        return new JpaPagingItemReaderBuilder<OrderItem>()
                 .name("dailySettlementJpaItemReader")
                 .entityManagerFactory(em.getEntityManagerFactory())
                 .pageSize(CHUNK_SIZE)

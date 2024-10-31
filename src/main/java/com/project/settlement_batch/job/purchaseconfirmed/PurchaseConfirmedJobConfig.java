@@ -29,12 +29,12 @@ public class PurchaseConfirmedJobConfig {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
 
-    private final JpaPagingItemReader deliveryCompletedJpaItemReader;
-    private final ItemProcessor purchaseConfirmedProcessor;
-    private final ItemWriter purchaseConfirmedWriter;
+    private final JpaPagingItemReader<OrderItem> deliveryCompletedJpaItemReader;
+    private final ItemProcessor<OrderItem, OrderItem> purchaseConfirmedProcessor;
+    private final ItemWriter<OrderItem> purchaseConfirmedWriter;
 
-    private final JpaPagingItemReader dailySettlementJpaItemReader;
-    private final JpaPagingItemReader claimSettlementJpaItemReader;
+    private final JpaPagingItemReader<OrderItem> dailySettlementJpaItemReader;
+    private final JpaPagingItemReader<ClaimReceiptItem> claimSettlementJpaItemReader;
     private final SettlementDailyRepository settlementDailyRepository;
 
     private static final String JOB_NAME = "purchaseConfirmedJob";

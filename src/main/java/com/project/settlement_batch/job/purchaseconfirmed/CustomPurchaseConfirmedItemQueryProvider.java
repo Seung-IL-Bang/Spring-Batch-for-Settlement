@@ -4,6 +4,7 @@ import com.project.settlement_batch.domain.entity.order.OrderItem;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.batch.item.database.orm.AbstractJpaQueryProvider;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +20,7 @@ public class CustomPurchaseConfirmedItemQueryProvider extends AbstractJpaQueryPr
     }
 
     @Override
+    @NonNull
     public Query createQuery() {
 
         TypedQuery<OrderItem> query = this.getEntityManager()

@@ -4,6 +4,7 @@ import com.project.settlement_batch.domain.projection.SummingSettlementResponse;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.batch.item.database.orm.AbstractJpaQueryProvider;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDate;
 
@@ -18,6 +19,7 @@ public class SummingSettlementDailyQueryProvider extends AbstractJpaQueryProvide
     }
 
     @Override
+    @NonNull
     public Query createQuery() {
 
         TypedQuery<SummingSettlementResponse> query = this.getEntityManager().createQuery(

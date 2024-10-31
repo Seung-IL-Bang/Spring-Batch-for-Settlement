@@ -4,6 +4,7 @@ import com.project.settlement_batch.domain.entity.order.OrderItem;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.batch.item.database.orm.AbstractJpaQueryProvider;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
 
@@ -18,9 +19,11 @@ public class DeliveryCompletedJpaQueryProvider extends AbstractJpaQueryProvider 
     }
 
     @Override
+    @NonNull
     public Query createQuery() {
-        TypedQuery<OrderItem> query = this.getEntityManager()
-                .createQuery("SELECT oi " +
+        return this.getEntityManager()
+                .createQuery(
+                      "SELECT oi " +
                         "FROM OrderItem oi " +
                         "LEFT OUTER JOIN ClaimReceipt cr ON oi.id = cr.id " +
                         "WHERE oi.shippedCompletedAt BETWEEN :startDateTime AND :endDateTime " +
@@ -28,7 +31,6 @@ public class DeliveryCompletedJpaQueryProvider extends AbstractJpaQueryProvider 
                         "AND (cr.id IS NULL OR cr.completedAt IS NOT NULL)", OrderItem.class)
                 .setParameter("startDateTime", startDateTime)
                 .setParameter("endDateTime", endDateTime);
-        return query;
     }
 
     @Override

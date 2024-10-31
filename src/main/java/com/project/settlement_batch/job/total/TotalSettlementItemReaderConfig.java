@@ -16,7 +16,7 @@ public class TotalSettlementItemReaderConfig {
     @PersistenceContext
     private EntityManager em;
 
-    private final int CHUNK_SIZE = 500;
+    private static final int CHUNK_SIZE = 500;
     private final LocalDate currentDate = LocalDate.now();
 
     @Bean

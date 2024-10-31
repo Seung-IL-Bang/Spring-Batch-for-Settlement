@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 public class DeliveryCompletedItemReaderConfig {
 
     private static final int CHUNK_SIZE = 500;
-    private LocalDateTime startDateTime = LocalDateTime.now();
-    private LocalDateTime endDateTime = LocalDateTime.now().plusDays(1);
+    private final LocalDateTime startDateTime = LocalDateTime.now();
+    private final LocalDateTime endDateTime = LocalDateTime.now().plusDays(1);
 
 
     @Bean

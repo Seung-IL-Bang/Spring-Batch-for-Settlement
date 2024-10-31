@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ClaimSettlementItemReaderConfig {
 
-    private final int CHUNK_SIZE = 500;
+    private static final int CHUNK_SIZE = 500;
 
     @PersistenceContext
     private EntityManager entityManager;

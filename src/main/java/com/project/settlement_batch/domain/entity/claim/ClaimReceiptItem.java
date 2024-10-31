@@ -3,10 +3,12 @@ package com.project.settlement_batch.domain.entity.claim;
 import com.project.settlement_batch.domain.entity.BaseEntity;
 import com.project.settlement_batch.domain.entity.order.OrderItem;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import static jakarta.persistence.FetchType.*;
 
 @Entity
+@Getter
 public class ClaimReceiptItem extends BaseEntity {
 
     @Id

@@ -6,10 +6,12 @@ import com.project.settlement_batch.domain.constant.ExtraFeePayer;
 import com.project.settlement_batch.domain.converter.ClaimStatusConverter;
 import com.project.settlement_batch.domain.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 public class ClaimReceipt extends BaseEntity {
 
     @Id

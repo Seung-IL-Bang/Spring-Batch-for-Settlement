@@ -83,6 +83,12 @@ public class PurchaseConfirmedJobConfig {
         return new StepBuilder(JOB_NAME + "_claimSettlement_step", jobRepository)
                 .<ClaimReceiptItem, SettlementDaily>chunk(CHUNK_SIZE, transactionManager)
                 .reader(claimSettlementJpaItemReader)
+                .processor(claimSettlementItemProcessor())
                 .build();
+    }
+
+    @Bean
+    public ClaimSettlementItemProcessor claimSettlementItemProcessor() {
+        return new ClaimSettlementItemProcessor();
     }
 }

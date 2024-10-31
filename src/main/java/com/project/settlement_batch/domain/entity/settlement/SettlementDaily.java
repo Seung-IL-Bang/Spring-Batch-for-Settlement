@@ -33,7 +33,7 @@ public class SettlementDaily extends BaseEntity {
 
     private int orderItemCount;
 
-    private int claimReceiptItemId;
+    private int claimReceiptId;
 
     private LocalDate settlementDate;
 

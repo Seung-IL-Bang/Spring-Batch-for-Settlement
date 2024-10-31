@@ -84,11 +84,17 @@ public class PurchaseConfirmedJobConfig {
                 .<ClaimReceiptItem, SettlementDaily>chunk(CHUNK_SIZE, transactionManager)
                 .reader(claimSettlementJpaItemReader)
                 .processor(claimSettlementItemProcessor())
+                .writer(claimSettlementItemWriter())
                 .build();
     }
 
     @Bean
     public ClaimSettlementItemProcessor claimSettlementItemProcessor() {
         return new ClaimSettlementItemProcessor();
+    }
+
+    @Bean
+    public ClaimSettlementItemWriter claimSettlementItemWriter() {
+        return new ClaimSettlementItemWriter(settlementDailyRepository);
     }
 }

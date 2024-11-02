@@ -45,9 +45,6 @@ public class NegativeDailySettlementCollection {
         ClaimShippedAmountCalculator claimShippedAmountCalculator = new ClaimShippedAmountCalculator(claimReceiptItem);
         BigDecimal claimShippingFeeAmount = claimShippedAmountCalculator.getClaimShippedAmount();
 
-
-
-
         return SettlementDaily.builder()
                 .settlementDate(LocalDate.now())
                 .orderId(orderItem.getOrderId())
@@ -65,7 +62,7 @@ public class NegativeDailySettlementCollection {
                 .mileageUsedAmount(orderItemSnapshot.getMileageUsedAmount())
                 .shippingFee(orderItemSnapshot.getDefaultDeliveryAmount())
                 .claimReceiptId(claimReceiptItem.getClaimReceipt().getClaimReceiptId())
-                .claimShippingFee()
+                .claimShippingFee(claimShippingFeeAmount)
                 .build();
     }
 }

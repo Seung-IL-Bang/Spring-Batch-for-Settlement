@@ -3,10 +3,12 @@ package com.project.settlement_batch.domain.entity;
 import com.project.settlement_batch.domain.constant.Category;
 import com.project.settlement_batch.domain.constant.TaxType;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
 @Entity
+@Getter
 public class Product extends BaseEntity {
 
     @Id

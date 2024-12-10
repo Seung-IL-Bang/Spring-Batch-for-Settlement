@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 public class ClaimShippedAmountCalculator {
 
-    private final static BigDecimal SHIPPING_AMOUNT = BigDecimal.valueOf(3000L);
+    private static final BigDecimal SHIPPING_AMOUNT = BigDecimal.valueOf(3000L);
 
     private final ClaimReceiptItem claimReceiptItem;
 
@@ -41,12 +41,9 @@ public class ClaimShippedAmountCalculator {
             case RETURN -> {
                 return -1;
             }
+            default -> {
+                return 0; // ?
+            }
         }
-
     }
-
-
-
-
-
 }
